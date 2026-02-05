@@ -1,7 +1,7 @@
 // ====== CONFIG ======
 const CONFIG = {
   password: "five",
-  testUnlockAll: true, // ✅ set to true to preview unlocked; set back to false before final
+  testUnlockAll: false, // ✅ set to true to preview unlocked; set back to false before final
 
   albumTitle: "THE FIRST FIVE",
   artistName: "DanSan",
