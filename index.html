@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DanSanPlaylist</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- PASSWORD GATE -->
+  <div class="gate" id="gate">
+    <div class="gate-card">
+      <div class="gate-title">Private Album</div>
+      <div class="gate-subtitle">Enter the password to unlock the page</div>
+
+      <input id="pw" class="gate-input" type="password" placeholder="Password" autocomplete="off" />
+      <button id="pwBtn" class="gate-btn">Enter</button>
+
+      <div id="pwHint" class="gate-hint"></div>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div class="app hidden" id="app">
+    <div class="bg" id="bg"></div>
+
+    <header class="topbar">
+      <div class="brand">The First Five by DanSan</div>
+      <div class="pill" id="globalCountdown">Loading countdown…</div>
+    </header>
+
+    <main class="content">
+      <section class="album-hero">
+        <div class="cover-wrap">
+          <img class="cover" id="coverImg" src="album_cover.png" alt="Album Cover" />
+        </div>
+
+        <div class="album-meta">
+          <div class="tag">ALBUM</div>
+          <h1 class="title" id="albumTitle">THE FIRST FIVE</h1>
+
+          <div class="subtitle">
+            <span class="artist" id="artistName">DanSan</span>
+            <span class="dot">•</span>
+            <span id="yearLabel">2026</span>
+            <span class="dot">•</span>
+            <span id="trackCountLabel">5 songs</span>
+          </div>
+
+          <div class="hero-actions">
+            <button class="play-album" id="playAlbumBtn">▶ Play Album</button>
+            <button class="btn" id="pauseAlbumBtn">Pause</button>
+          </div>
+
+          <div class="message-card">
+            <div class="message-title">Message</div>
+            <p class="message" id="albumMessage">
+              Five songs. The final track unlocks on Feb 14 ❤️
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="tracklist">
+        <div class="tracklist-header">
+          <div class="th num">#</div>
+          <div class="th name">TITLE</div>
+          <div class="th dur">TIME</div>
+          <div class="th action"></div>
+        </div>
+
+        <div id="tracks"></div>
+        <div id="err" style="margin:12px 18px;padding:12px;border:1px solid rgba(255,255,255,.15);border-radius:12px;background:rgba(255,0,0,.10);font-family:monospace;font-size:12px;white-space:pre-wrap;display:none;"></div>
+      </section>
+
+      <footer class="footer">
+        <div class="small">
+          Private page protected by password. Keep the link private too ❤️
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
