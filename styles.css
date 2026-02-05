@@ -269,6 +269,17 @@ body{
 .track-title .name{ font-weight: 700; color: var(--text); }
 .track-title .unlock{ font-family: var(--mono); font-size: 12px; color: var(--muted); }
 
+.track-title .unlock{
+  line-height: 1.35;
+  word-break: normal;
+}
+
+@media (max-width: 860px){
+  .track-title .unlock{
+    max-width: 280px;
+  }
+}
+
 .dur{
   font-family: var(--mono);
   color: var(--muted);
@@ -297,15 +308,50 @@ body{
   .album-hero{ grid-template-columns: 1fr; align-items: start; }
   .cover{ width: 100%; max-width: 360px; height: auto; aspect-ratio: 1/1; }
   .title{ font-size: 36px; }
-  .tracklist-header, .row{ grid-template-columns: 42px 1fr 70px 160px; }
+
+  /* Make tracklist mobile-friendly */
+  .tracklist-header{
+    grid-template-columns: 42px 1fr 70px;
+  }
+  .tracklist-header .th.action{ display:none; }
+
+  .row{
+    grid-template-columns: 42px 1fr 70px;
+    align-items: start;
+  }
+
+  /* Locked rows: remove the right-side action column feeling */
+  .row.locked{
+    grid-template-columns: 42px 1fr;
+  }
+
+  /* Move lock badge under the title and make it look clean */
+  .row.locked .actions{
+    justify-content: flex-start;
+    margin-top: 8px;
+  }
+
+  .row.locked .track-title{
+    gap: 6px;
+  }
+
+  .row.locked .dur{
+    display:none;
+  }
+
+  .row.locked .lock-icon{
+    display: inline-flex;
+    width: fit-content;
+    padding: 7px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.06);
+    font-size: 12px;
+    white-space: nowrap;
+  }
 }
+
 /* Try to hide download/overflow menu in Chromium */
-audio::-webkit-media-controls-enclosure {
-  overflow: hidden;
-}
-audio::-webkit-media-controls-panel {
-  width: calc(100% + 30px);
-}
 audio::-webkit-media-controls-enclosure { overflow: hidden; }
 audio::-webkit-media-controls-panel { width: calc(100% + 30px); }
 
