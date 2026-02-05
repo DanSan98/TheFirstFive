@@ -1,6 +1,7 @@
 // ====== CONFIG ======
 const CONFIG = {
   password: "five",
+  testUnlockAll: true, // ✅ set to true to preview unlocked; set back to false before final
 
   albumTitle: "THE FIRST FIVE",
   artistName: "DanSan",
@@ -79,7 +80,8 @@ function getUnlockDateForTrack(index){
 }
 
 function isUnlocked(unlockDate, now){
-  return now >= unlockDate;
+  if (CONFIG.testUnlockAll) return true;   // TEST: everything unlocked
+  return now >= unlockDate;               // REAL behavior
 }
 
 function findNextUnlock(now){
@@ -269,7 +271,10 @@ function render(){
     row.className = "row" + (unlocked ? "" : " locked");
 
     row.innerHTML = `
-  <div class="num">${i + 1}</div>
+  <div class="num">
+  <span class="num-text">${i + 1}</span>
+  <button class="play-icon hidden" aria-label="Play">▶</button>
+</div>
   <div class="track-title">
     <div class="name">${shownTitle}</div>
     <div class="unlock">${unlockLabel}</div>
@@ -286,9 +291,6 @@ function render(){
     const actions = row.querySelector(".actions");
 
     if (unlocked){
-      const btn = document.createElement("button");
-      btn.className = "btn";
-      btn.textContent = "Play";
 
       const audio = document.createElement("audio");
       audio.className = "audio";
@@ -336,32 +338,39 @@ bar.addEventListener("input", () => {
   audio.currentTime = pct * audio.duration;
 });
 
-btn.addEventListener("click", async () => {
+
+
+      audio.addEventListener("play", () => stopAllAudioExcept(audio));
+      attachAlbumEndHandler(audio);
+
+      actions.appendChild(audio);
+
+      const playIcon = row.querySelector(".play-icon");
+const numText = row.querySelector(".num-text");
+
+playIcon.classList.remove("hidden");
+numText.classList.add("hidden");
+
+playIcon.addEventListener("click", async () => {
   try {
     stopAllAudioExcept(audio);
     currentAlbumAudio = audio;
 
     if (!audio.paused) {
       audio.pause();
-      btn.textContent = "Play";
+      playIcon.textContent = "▶";
       return;
     }
 
     await audio.play();
-btn.textContent = "Pause";
-  } catch (e) {
-    alert(`Couldn’t play audio (${t.file}).`);
+    playIcon.textContent = "⏸";
+  } catch {
+    alert("Could not play audio.");
   }
 });
 
-      audio.addEventListener("pause", () => { btn.textContent = "Play"; });
-      audio.addEventListener("play",  () => { btn.textContent = "Pause"; });
-
-      audio.addEventListener("play", () => stopAllAudioExcept(audio));
-      attachAlbumEndHandler(audio);
-
-      actions.appendChild(btn);
-      actions.appendChild(audio);
+audio.addEventListener("pause", () => playIcon.textContent = "▶");
+audio.addEventListener("play",  () => playIcon.textContent = "⏸");
 
       // Load duration metadata and re-render to show duration
       ensureDurationLoaded(t.file, () => {
