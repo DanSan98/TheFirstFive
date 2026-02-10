@@ -20,8 +20,8 @@ const CONFIG = {
   tracks: [
   { revealedName: "I Got You — Jack Johnson", file: "songs/01.mp3" },
   { revealedName: "Until I Found You — Stephen Sanchez", file: "songs/02.mp3" },
-  { revealedName: "Light My Love (Piano Version) — Greta Van Fleet", file: "songs/03.mp3" },
-  { revealedName: "Smithereens (Acoustic Version) — Twenty One Pilots", file: "songs/04.mp3" },
+  { revealedName: "Smithereens (Acoustic Version) — Twenty One Pilots", file: "songs/03.mp3" },
+  { revealedName: "Light My Love (Piano Version) — Greta Van Fleet", file: "songs/04.mp3" },
   { revealedName: "My Valentine — Paul McCartney", file: "songs/05.mp3" },
 ],
 
